@@ -5,12 +5,11 @@ import io.papermc.paper.event.player.AsyncChatEvent;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import org.bukkit.Sound;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
 import java.util.Arrays;
-import java.util.Objects;
+import java.util.Locale;
 
 public class AsyncChatListener implements Listener {
 
@@ -43,7 +42,16 @@ public class AsyncChatListener implements Listener {
         else {
             plugin.getSpamManager().addMessage(event.getPlayer().getName());
             String message = PlainTextComponentSerializer.plainText().serialize(event.message());
-            plugin.getServer().getOnlinePlayers().forEach(player -> Arrays.stream(message.split(" ")).filter(s -> s.equals(player.getName())).forEach(s -> player.playSound(player.getLocation(), sound, volume, pitch)));
+            message = message.replace(".","");
+            message = message.replace(",","");
+            message = message.replace("\"","");
+            message = message.replace("!","");
+            message = message.replace("?","");
+            message = message.replace("(","");
+            message = message.replace(")","");
+            message = message.toLowerCase();
+            String finalMessage = message;
+            plugin.getServer().getOnlinePlayers().forEach(player -> Arrays.stream(finalMessage.split(" ")).filter(s -> s.equals(player.getName().toLowerCase())).forEach(s -> player.playSound(player.getLocation(), sound, volume, pitch)));
         }
 
     }
