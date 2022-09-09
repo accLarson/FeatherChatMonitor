@@ -1,15 +1,18 @@
 package com.zerek.featherchatmonitor.listeners;
 
+import com.earth2me.essentials.Essentials;
 import com.zerek.featherchatmonitor.FeatherChatMonitor;
 import io.papermc.paper.event.player.AsyncChatEvent;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import org.bukkit.Sound;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
 import java.util.Arrays;
-import java.util.Locale;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class AsyncChatListener implements Listener {
 
@@ -17,6 +20,7 @@ public class AsyncChatListener implements Listener {
     private final Sound sound;
     private final float volume, pitch;
     private final String spamMessage, kickMessage;
+    private final Essentials ess;
 
 
     public AsyncChatListener(FeatherChatMonitor plugin) {
@@ -26,6 +30,7 @@ public class AsyncChatListener implements Listener {
         pitch = (float) plugin.getConfig().getDouble("ping.pitch");
         spamMessage = plugin.getConfig().getString("spam-limit.warnings.warning");
         kickMessage = plugin.getConfig().getString("spam-limit.warnings.kick-message");
+        ess = (Essentials) plugin.getServer().getPluginManager().getPlugin("Essentials");
     }
 
     @EventHandler
@@ -51,8 +56,14 @@ public class AsyncChatListener implements Listener {
             message = message.replace(")","");
             message = message.toLowerCase();
             String finalMessage = message;
-            plugin.getServer().getOnlinePlayers().forEach(player -> Arrays.stream(finalMessage.split(" ")).filter(s -> s.equals(player.getName().toLowerCase())).forEach(s -> player.playSound(player.getLocation(), sound, volume, pitch)));
-        }
 
+            List <Player> playersToPing = plugin.getServer().getOnlinePlayers().stream()
+                    .filter(player -> Arrays.stream(finalMessage.split(" ")).collect(Collectors.toList()).contains(player.getName().toLowerCase()))
+                    .collect(Collectors.toList());
+
+            playersToPing.forEach(p -> {
+                if (!ess.getUser(p).isIgnoredPlayer(ess.getUser(event.getPlayer()))) p.playSound(p.getLocation(), sound, volume, pitch);
+            });
+        }
     }
 }
