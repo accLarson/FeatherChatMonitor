@@ -1,8 +1,10 @@
-#FeatherCatMonitor by Zerek
+# FeatherCatMonitor by Zerek
 
-#Ping players when their name is said in chat.
-#sound names https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Sound.html
-#FORMAT: ping: Sound sound, float volume, float pitch
+# Ping players when their name is said in chat.
+# Warn and kick spamming players
+# Color messages prefixed with a 'distinguish' tag.
+# sound names https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Sound.html
+# FORMAT: ping: Sound sound, float volume, float pitch
 ping:
   sound: "BLOCK_NOTE_BLOCK_HARP"
   volume: 1.0
@@ -17,3 +19,11 @@ spam-limit:
     message-count: 4
     warning: "<red>You are spamming - please slow down or you will be kicked."
     kick-message: "<red>Automatically kicked for spamming chat."
+
+distinguish:
+  tag: "<distinguish>"
+  colors:
+    donor: "#FAECA7"
+    assistant: "#6EABFF"
+    moderator: "#49DB44"
+    administrator: "#F51657"
