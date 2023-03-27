@@ -51,7 +51,7 @@ public class AsyncChatListener implements Listener {
 
         // Distinguish coloring system ---------------------------------------------------------------------------------
 
-        if (event.getPlayer().hasPermission("feather.tips.distinguish") && PlainTextComponentSerializer.plainText().serialize(event.message()).startsWith(plugin.getDistinguishTag())) {
+        if (event.getPlayer().hasPermission("feather.chatmonitor.distinguish") && PlainTextComponentSerializer.plainText().serialize(event.message()).startsWith(plugin.getDistinguishTag())) {
 
             event.message(event.message().replaceText(b -> b.matchLiteral(plugin.getDistinguishTag()).replacement(Component.text(""))));
 
@@ -66,12 +66,12 @@ public class AsyncChatListener implements Listener {
 
         // Anti chat spam system ---------------------------------------------------------------------------------------
 
-        if (!event.getPlayer().hasPermission("feather.spam.bypass") && plugin.getSpamManager().needsKick(event.getPlayer().getName())){
+        if (!event.getPlayer().hasPermission("feather.chatmonitor.spam.bypass") && plugin.getSpamManager().needsKick(event.getPlayer().getName())){
 
             plugin.getServer().getScheduler().runTask(plugin, () -> event.getPlayer().kick(MiniMessage.miniMessage().deserialize(kickMessage)));
         }
 
-        if (!event.getPlayer().hasPermission("feather.spam.bypass") && plugin.getSpamManager().isSpam(event.getPlayer().getName())) {
+        if (!event.getPlayer().hasPermission("feather.chatmonitor.spam.bypass") && plugin.getSpamManager().isSpam(event.getPlayer().getName())) {
 
             event.setCancelled(true);
 
