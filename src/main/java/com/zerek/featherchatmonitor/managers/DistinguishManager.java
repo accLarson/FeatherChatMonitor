@@ -1,6 +1,7 @@
 package com.zerek.featherchatmonitor.managers;
 
 import com.zerek.featherchatmonitor.FeatherChatMonitor;
+import com.zerek.featherchatmonitor.data.DistinguishGroup;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.permissions.Permission;
@@ -13,9 +14,9 @@ public class DistinguishManager {
 
     private final FeatherChatMonitor plugin;
 
-    private final Map<Permission,String> distinguishColorsMap = new HashMap<>();
+    private final Map<Permission, DistinguishGroup> distinguishMap = new HashMap<>();
 
-    private String distinguishTag;
+    private String tag;
 
     public DistinguishManager(FeatherChatMonitor plugin) {
 
@@ -26,28 +27,27 @@ public class DistinguishManager {
 
     private void init() {
 
-        plugin.getConfig().getConfigurationSection("distinguish.colors").getKeys(false).forEach(role -> {
+        plugin.getConfig().getConfigurationSection("distinguish.groups").getKeys(false).forEach(group -> distinguishMap.put(
+                new Permission("feather.chatmonitor.distinguish." + group, PermissionDefault.FALSE),
+                new DistinguishGroup(plugin.getConfig().getInt("distinguish.groups." + group + ".priority"), plugin.getConfig().getString("distinguish.groups." + group+ ".color"))
+                ));
 
-            distinguishColorsMap.put(
-                    new Permission("feather.chatmonitor.distinguish." + role, PermissionDefault.FALSE),
-                    plugin.getConfig().getString("distinguish.colors." + role));
-        });
-
-        distinguishTag = plugin.getConfig().getString("distinguish.tag");
+        tag = plugin.getConfig().getString("distinguish.tag");
     }
 
     public Component distinguishMessage(Component message, Permission p) {
 
-        message = message.replaceText(b -> b.matchLiteral(this.getDistinguishTag()).replacement(Component.text("")));
+        message = message.replaceText(b -> b.matchLiteral(this.getTag()).replacement(Component.text("")));
 
-        return message.color(TextColor.fromCSSHexString(this.distinguishColorsMap.get(p)));
+        return message.color(TextColor.fromCSSHexString(this.distinguishMap.get(p).getColor()));
     }
 
-    public Map<Permission, String> getDistinguishColorsMap() {
-        return distinguishColorsMap;
+    public Map<Permission, DistinguishGroup> getDistinguishMap() {
+        return distinguishMap;
     }
 
-    public String getDistinguishTag() {
-        return distinguishTag;
+
+    public String getTag() {
+        return tag;
     }
 }

@@ -18,12 +18,21 @@ spam-limit:
     second-count: 60
     message-count: 4
     warning: "<red>You are spamming - please slow down or you will be kicked."
-    kick-message: "<red>Automatically kicked for spamming chat."
+    kick-message: "<red>Automatically kicked for spamming."
 
 distinguish:
   tag: "<distinguish>"
-  colors:
-    donor: "#FAECA7"
-    assistant: "#6EABFF"
-    moderator: "#49DB44"
-    administrator: "#F51657"
+  groups:
+    # Take care to ensure no player is a member of two groups which share a priority level.
+    donor:
+      priority: 1
+      color: "#FAECA7"
+    assistant:
+      priority: 2
+      color: "#6EABFF"
+    moderator:
+      priority: 3
+      color: "#49DB44"
+    administrator:
+      priority: 4
+      color: "#F51657"

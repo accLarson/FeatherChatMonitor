@@ -9,6 +9,7 @@ import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.permissions.Permission;
 
 import java.util.Arrays;
 import java.util.List;
@@ -49,13 +50,18 @@ public class AsyncChatListener implements Listener {
 
         // Distinguish coloring system ---------------------------------------------------------------------------------
 
-        if (PlainTextComponentSerializer.plainText().serialize(event.message()).startsWith(plugin.getDistinguishManager().getDistinguishTag())) {
+        if (PlainTextComponentSerializer.plainText().serialize(event.message()).startsWith(plugin.getDistinguishManager().getTag())) {
 
-            plugin.getDistinguishManager().getDistinguishColorsMap().keySet().forEach(p -> {
+            Permission permission = null;
 
-                if (event.getPlayer().hasPermission(p)) event.message(plugin.getDistinguishManager().distinguishMessage(event.message(),p));
-            });
+            Integer priority = 0;
 
+            for (Permission p : plugin.getDistinguishManager().getDistinguishMap().keySet()) {
+
+                if (event.getPlayer().hasPermission(p) && plugin.getDistinguishManager().getDistinguishMap().get(p).getPriority() > priority) permission = p;
+            }
+
+            event.message(plugin.getDistinguishManager().distinguishMessage(event.message(), permission));
         }
 
         // Anti chat spam system ---------------------------------------------------------------------------------------
