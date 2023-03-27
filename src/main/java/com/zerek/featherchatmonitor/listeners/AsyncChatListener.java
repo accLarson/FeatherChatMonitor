@@ -3,8 +3,6 @@ package com.zerek.featherchatmonitor.listeners;
 import com.earth2me.essentials.Essentials;
 import com.zerek.featherchatmonitor.FeatherChatMonitor;
 import io.papermc.paper.event.player.AsyncChatEvent;
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import org.bukkit.Sound;
@@ -51,17 +49,13 @@ public class AsyncChatListener implements Listener {
 
         // Distinguish coloring system ---------------------------------------------------------------------------------
 
-        if (event.getPlayer().hasPermission("feather.chatmonitor.distinguish") && PlainTextComponentSerializer.plainText().serialize(event.message()).startsWith(plugin.getDistinguishTag())) {
+        if (PlainTextComponentSerializer.plainText().serialize(event.message()).startsWith(plugin.getDistinguishManager().getDistinguishTag())) {
 
-            event.message(event.message().replaceText(b -> b.matchLiteral(plugin.getDistinguishTag()).replacement(Component.text(""))));
+            plugin.getDistinguishManager().getDistinguishColorsMap().keySet().forEach(p -> {
 
-            if (event.getPlayer().hasPermission("group.administrator")) event.message(event.message().color(TextColor.fromCSSHexString(plugin.getDistinguishColors().get("administrator"))));
+                if (event.getPlayer().hasPermission(p)) event.message(plugin.getDistinguishManager().distinguishMessage(event.message(),p));
+            });
 
-            else if (event.getPlayer().hasPermission("group.moderator")) event.message(event.message().color(TextColor.fromCSSHexString(plugin.getDistinguishColors().get("moderator"))));
-
-            else if (event.getPlayer().hasPermission("group.assistant")) event.message(event.message().color(TextColor.fromCSSHexString(plugin.getDistinguishColors().get("assistant"))));
-
-            else if (event.getPlayer().hasPermission("group.donor")) event.message(event.message().color(TextColor.fromCSSHexString(plugin.getDistinguishColors().get("donor"))));
         }
 
         // Anti chat spam system ---------------------------------------------------------------------------------------
