@@ -58,7 +58,12 @@ public class AsyncChatListener implements Listener {
 
             for (Permission p : plugin.getDistinguishManager().getDistinguishMap().keySet()) {
 
-                if (event.getPlayer().hasPermission(p) && plugin.getDistinguishManager().getDistinguishMap().get(p).getPriority() > priority) permission = p;
+                if (event.getPlayer().hasPermission(p) && plugin.getDistinguishManager().getDistinguishMap().get(p).getPriority() > priority) {
+
+                    priority = plugin.getDistinguishManager().getDistinguishMap().get(p).getPriority();
+
+                    permission = p;
+                }
             }
 
             event.message(plugin.getDistinguishManager().distinguishMessage(event.message(), permission));
