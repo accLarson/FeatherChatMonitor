@@ -1,7 +1,7 @@
-package com.zerek.featherchatmonitor.listeners;
+package dev.zerek.featherchatmonitor.listeners;
 
 import com.earth2me.essentials.Essentials;
-import com.zerek.featherchatmonitor.FeatherChatMonitor;
+import dev.zerek.featherchatmonitor.FeatherChatMonitor;
 import io.papermc.paper.event.player.AsyncChatEvent;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;

@@ -1,11 +1,10 @@
-package com.zerek.featherchatmonitor;
+package dev.zerek.featherchatmonitor;
 
-import com.zerek.featherchatmonitor.listeners.AsyncChatListener;
-import com.zerek.featherchatmonitor.managers.DistinguishManager;
-import com.zerek.featherchatmonitor.managers.SpamManager;
-import com.zerek.featherchatmonitor.tasks.SpamCheckTask;
+import dev.zerek.featherchatmonitor.listeners.AsyncChatListener;
+import dev.zerek.featherchatmonitor.managers.DistinguishManager;
+import dev.zerek.featherchatmonitor.managers.SpamManager;
+import dev.zerek.featherchatmonitor.tasks.SpamCheckTask;
 import org.bukkit.plugin.java.JavaPlugin;
-;
 
 public final class FeatherChatMonitor extends JavaPlugin {
 
@@ -25,8 +24,6 @@ public final class FeatherChatMonitor extends JavaPlugin {
         this.spamManager = new SpamManager(this);
 
         this.distinguishManager = new DistinguishManager(this);
-
-
     }
 
     @Override

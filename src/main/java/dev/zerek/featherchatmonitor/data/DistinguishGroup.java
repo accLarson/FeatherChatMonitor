@@ -1,4 +1,4 @@
-package com.zerek.featherchatmonitor.data;
+package dev.zerek.featherchatmonitor.data;
 
 public class DistinguishGroup {
 

@@ -1,6 +1,6 @@
-package com.zerek.featherchatmonitor.managers;
+package dev.zerek.featherchatmonitor.managers;
 
-import com.zerek.featherchatmonitor.FeatherChatMonitor;
+import dev.zerek.featherchatmonitor.FeatherChatMonitor;
 
 import java.time.Instant;
 import java.util.Collections;

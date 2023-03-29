@@ -1,6 +1,6 @@
 name: FeatherChatMonitor
 version: '${project.version}'
-main: com.zerek.featherchatmonitor.FeatherChatMonitor
+main: dev.zerek.featherchatmonitor.FeatherChatMonitor
 api-version: 1.18
 authors: [ Zerek ]
 depends: [Essentials]

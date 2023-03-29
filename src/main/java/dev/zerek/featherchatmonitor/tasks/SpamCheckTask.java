@@ -1,6 +1,6 @@
-package com.zerek.featherchatmonitor.tasks;
+package dev.zerek.featherchatmonitor.tasks;
 
-import com.zerek.featherchatmonitor.FeatherChatMonitor;
+import dev.zerek.featherchatmonitor.FeatherChatMonitor;
 
 import java.time.Duration;
 import java.time.Instant;

@@ -1,7 +1,7 @@
-package com.zerek.featherchatmonitor.managers;
+package dev.zerek.featherchatmonitor.managers;
 
-import com.zerek.featherchatmonitor.FeatherChatMonitor;
-import com.zerek.featherchatmonitor.data.DistinguishGroup;
+import dev.zerek.featherchatmonitor.FeatherChatMonitor;
+import dev.zerek.featherchatmonitor.data.DistinguishGroup;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.permissions.Permission;
