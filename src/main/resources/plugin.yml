@@ -1,7 +1,7 @@
 name: FeatherChatMonitor
 version: '${project.version}'
 main: dev.zerek.featherchatmonitor.FeatherChatMonitor
-api-version: 1.18
+api-version: 1.20
 authors: [ Zerek ]
 depends: [Essentials]
 description: Prevents excessive spam as well as some other useful chat features
