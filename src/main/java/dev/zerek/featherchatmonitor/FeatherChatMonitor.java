@@ -2,6 +2,7 @@ package dev.zerek.featherchatmonitor;
 
 import dev.zerek.featherchatmonitor.listeners.AsyncChatListener;
 import dev.zerek.featherchatmonitor.listeners.PlayerSetSpawnListener;
+import dev.zerek.featherchatmonitor.listeners.PrivateMessageSentListener;
 import dev.zerek.featherchatmonitor.managers.DistinguishManager;
 import dev.zerek.featherchatmonitor.managers.SpamManager;
 import dev.zerek.featherchatmonitor.tasks.SpamCheckTask;
@@ -20,6 +21,7 @@ public final class FeatherChatMonitor extends JavaPlugin {
 
         this.getServer().getPluginManager().registerEvents(new AsyncChatListener(this),this);
         this.getServer().getPluginManager().registerEvents(new PlayerSetSpawnListener(),this);
+        this.getServer().getPluginManager().registerEvents(new PrivateMessageSentListener(this),this);
 
         getServer().getScheduler().scheduleSyncRepeatingTask(this, new SpamCheckTask(this),20L, 20L);
 
