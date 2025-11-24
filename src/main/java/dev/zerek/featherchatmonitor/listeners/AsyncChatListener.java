@@ -90,6 +90,8 @@ public class AsyncChatListener implements Listener {
 
             plugin.getSpamManager().addMessage(event.getPlayer().getName());
 
+            // Player Ping system --------------------------------------------------------------------------------------
+
             String message = PlainTextComponentSerializer.plainText().serialize(event.message());
 
             message = message.replace(".","");
@@ -109,8 +111,6 @@ public class AsyncChatListener implements Listener {
             message = message.toLowerCase();
 
             String finalMessage = message;
-
-            // Player Ping system --------------------------------------------------------------------------------------
 
             List <Player> playersToPing = plugin.getServer().getOnlinePlayers().stream()
                     .filter(player -> Arrays.stream(finalMessage.split(" ")).collect(Collectors.toList()).contains(player.getName().toLowerCase()))
